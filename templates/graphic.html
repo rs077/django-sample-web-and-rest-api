@@ -1,6 +1,6 @@
 <div id="container"></div>
-<script type="module">
-
+{{ data|json_script:"json_data" }}
+<script>
     // Define dimensions and margins.
     const width = 640;
     const height = 400;
@@ -8,22 +8,11 @@
     const marginRight = 20;
     const marginBottom = 30;
     const marginLeft = 40;
-
-    // Define sample data.
-    const data = [
-        { date: new Date("2023-01-01"), value: 10 },
-        { date: new Date("2023-02-01"), value: 20 },
-        { date: new Date("2023-03-01"), value: 50 },
-        { date: new Date("2023-04-01"), value: 80 },
-        { date: new Date("2023-05-01"), value: 40 },
-        { date: new Date("2023-06-01"), value: 90 },
-        { date: new Date("2023-07-01"), value: 10 },
-        { date: new Date("2023-08-01"), value: 20 },
-        { date: new Date("2023-09-01"), value: 50 },
-        { date: new Date("2023-10-01"), value: 80 },
-        { date: new Date("2023-11-01"), value: 40 },
-        { date: new Date("2023-12-01"), value: 90 },
-    ];
+    
+    const data = JSON.parse(document.getElementById('json_data').textContent);
+    data.forEach(item => {
+        item.date = new Date(item.date);
+    });
 
     // Declare the x scale.
     const x = d3.scaleUtc()
