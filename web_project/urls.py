@@ -16,11 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from accounts.views import HomeView
+from accounts.views import HomeView, JSONDataView
 
 urlpatterns = [
+    path('api-auth/', include('rest_framework.urls')),
     path("admin/", admin.site.urls),
     path("accounts/", include("accounts.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
+    path("api/data/", JSONDataView.as_view(), name='json_data'),
     path("", HomeView.as_view(template_name="home.html"), name="home"),
 ]
